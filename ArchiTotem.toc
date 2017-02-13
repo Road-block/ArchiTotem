@@ -1,0 +1,8 @@
+## Interface: 11200
+## Title: ArchiTotem
+## Notes: All totems on 4 barslots!
+## Version: 1.31
+## Author: Nahoom
+## X-Credits: RoadBlock cleanup
+## SavedVariablesPerCharacter: ArchiTotem_TotemData, ArchiTotem_Options
+ArchiTotem.xml
