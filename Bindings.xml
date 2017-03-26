@@ -1,30 +1,163 @@
 <Bindings>
-	<Binding name="Cast Earth Totem" header="ATHEADER">
+	<Binding name="Cast Earth Totem 1" header="ATHEADER">
 		ArchiTotemCasted = 1;
 		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Earth1"];
 		ArchiTotemCastedElement = "Earth";
 		ArchiTotemCastedButton = "ArchiTotemButton_Earth1";
 		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Earth1"].name);
 	</Binding>
-	<Binding name="Cast Fire Totem">
+	<Binding name="Cast Earth Totem 2" header="ATHEADER">
+		ArchiTotemCasted = 2;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Earth2"];
+		ArchiTotemCastedElement = "Earth";
+		ArchiTotemCastedButton = "ArchiTotemButton_Earth2";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Earth2"].name);
+	</Binding>
+	<Binding name="Cast Earth Totem 3" header="ATHEADER">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Earth3"];
+		ArchiTotemCastedElement = "Earth";
+		ArchiTotemCastedButton = "ArchiTotemButton_Earth3";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Earth3"].name);
+	</Binding>
+	<Binding name="Cast Earth Totem 4" header="ATHEADER">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Earth4"];
+		ArchiTotemCastedElement = "Earth";
+		ArchiTotemCastedButton = "ArchiTotemButton_Earth4";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Earth4"].name);
+	</Binding>
+	<Binding name="Cast Earth Totem 5" header="ATHEADER">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Earth5"];
+		ArchiTotemCastedElement = "Earth";
+		ArchiTotemCastedButton = "ArchiTotemButton_Earth5";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Earth5"].name);
+	</Binding>
+	<Binding name="Cast Fire Totem 1">
 		ArchiTotemCasted = 1;
 		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Fire1"];
 		ArchiTotemCastedElement = "Fire";
 		ArchiTotemCastedButton = "ArchiTotemButton_Fire1";
 		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Fire1"].name);
 	</Binding>
-	<Binding name="Cast Water Totem">
+	<Binding name="Cast Fire Totem 2">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Fire2"];
+		ArchiTotemCastedElement = "Fire";
+		ArchiTotemCastedButton = "ArchiTotemButton_Fire2";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Fire2"].name);
+	</Binding>
+	<Binding name="Cast Fire Totem 3">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Fire3"];
+		ArchiTotemCastedElement = "Fire";
+		ArchiTotemCastedButton = "ArchiTotemButton_Fire3";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Fire3"].name);
+	</Binding>
+	<Binding name="Cast Fire Totem 4">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Fire4"];
+		ArchiTotemCastedElement = "Fire";
+		ArchiTotemCastedButton = "ArchiTotemButton_Fire4";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Fire4"].name);
+	</Binding>
+	<Binding name="Cast Fire Totem 5">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Fire5"];
+		ArchiTotemCastedElement = "Fire";
+		ArchiTotemCastedButton = "ArchiTotemButton_Fire5";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Fire5"].name);
+	</Binding>
+	<Binding name="Cast Water Totem 1">
 		ArchiTotemCasted = 1;
 		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Water1"];
 		ArchiTotemCastedElement = "Water";
 		ArchiTotemCastedButton = "ArchiTotemButton_Water1";
 		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Water1"].name);
 	</Binding>
-	<Binding name="Cast Air Totem">
+	<Binding name="Cast Water Totem 2">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Water2"];
+		ArchiTotemCastedElement = "Water";
+		ArchiTotemCastedButton = "ArchiTotemButton_Water2";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Water2"].name);
+	</Binding>
+	<Binding name="Cast Water Totem 3">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Water3"];
+		ArchiTotemCastedElement = "Water";
+		ArchiTotemCastedButton = "ArchiTotemButton_Water3";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Water3"].name);
+	</Binding>
+	<Binding name="Cast Water Totem 4">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Water4"];
+		ArchiTotemCastedElement = "Water";
+		ArchiTotemCastedButton = "ArchiTotemButton_Water4";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Water4"].name);
+	</Binding>
+	<Binding name="Cast Water Totem 5">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Water5"];
+		ArchiTotemCastedElement = "Water";
+		ArchiTotemCastedButton = "ArchiTotemButton_Water5";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Water5"].name);
+	</Binding>
+	<Binding name="Cast Water Totem 6">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Water6"];
+		ArchiTotemCastedElement = "Water";
+		ArchiTotemCastedButton = "ArchiTotemButton_Water6";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Water6"].name);
+	</Binding>
+	<Binding name="Cast Air Totem 1">
 		ArchiTotemCasted = 1;
 		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Air1"];
 		ArchiTotemCastedElement = "Air";
 		ArchiTotemCastedButton = "ArchiTotemButton_Air1";
 		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Air1"].name);
+	</Binding>
+	<Binding name="Cast Air Totem 2">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Air2"];
+		ArchiTotemCastedElement = "Air";
+		ArchiTotemCastedButton = "ArchiTotemButton_Air2";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Air2"].name);
+	</Binding>
+	<Binding name="Cast Air Totem 3">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Air3"];
+		ArchiTotemCastedElement = "Air";
+		ArchiTotemCastedButton = "ArchiTotemButton_Air3";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Air3"].name);
+	</Binding>
+	<Binding name="Cast Air Totem 4">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Air4"];
+		ArchiTotemCastedElement = "Air";
+		ArchiTotemCastedButton = "ArchiTotemButton_Air4";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Air4"].name);
+	</Binding>
+	<Binding name="Cast Air Totem 5">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Air5"];
+		ArchiTotemCastedElement = "Air";
+		ArchiTotemCastedButton = "ArchiTotemButton_Air5";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Air5"].name);
+	</Binding>
+	<Binding name="Cast Air Totem 6">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Air6"];
+		ArchiTotemCastedElement = "Air";
+		ArchiTotemCastedButton = "ArchiTotemButton_Air6";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Air6"].name);
+	</Binding>
+	<Binding name="Cast Air Totem 7">
+		ArchiTotemCasted = 1;
+		ArchiTotemCastedTotem = ArchiTotem_TotemData["ArchiTotemButton_Air7"];
+		ArchiTotemCastedElement = "Air";
+		ArchiTotemCastedButton = "ArchiTotemButton_Air7";
+		CastSpellByName(ArchiTotem_TotemData["ArchiTotemButton_Air7"].name);
 	</Binding>
 </Bindings>
