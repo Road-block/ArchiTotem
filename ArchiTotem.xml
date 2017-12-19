@@ -16,6 +16,9 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
       <OnDragStop>
         ArchiTotem_OnDragStop();
       </OnDragStop>
+      <OnReceiveDrag>
+        ArchiTotem_Noop();
+      </OnReceiveDrag>
       <OnClick>
         ArchiTotem_OnClick();
       </OnClick>
@@ -81,7 +84,7 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
     </Scripts>
     <Frames>
 
-      --						EARTH
+      <!--						EARTH -->
 
       <Button name="ArchiTotemButton_Earth1" inherits="ArchiTotem_ButtonTemplate">
         <Anchors>
@@ -106,7 +109,7 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
       <Button name="ArchiTotemButton_Earth4" inherits="ArchiTotem_ButtonTemplate" hidden="true"/>
       <Button name="ArchiTotemButton_Earth5" inherits="ArchiTotem_ButtonTemplate" hidden="true"/>
 
-      --					FIRE
+      <!--					FIRE -->
 
       <Button name="ArchiTotemButton_Fire1" inherits="ArchiTotem_ButtonTemplate">
         <Layers>
@@ -128,7 +131,7 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
       <Button name="ArchiTotemButton_Fire4" inherits="ArchiTotem_ButtonTemplate" hidden="true"/>
       <Button name="ArchiTotemButton_Fire5" inherits="ArchiTotem_ButtonTemplate" hidden="true"/>
 
-      --					Water
+      <!--					WATER -->
 
       <Button name="ArchiTotemButton_Water1" inherits="ArchiTotem_ButtonTemplate">
         <Layers>
@@ -151,7 +154,7 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
       <Button name="ArchiTotemButton_Water5" inherits="ArchiTotem_ButtonTemplate" hidden="true"/>
       <Button name="ArchiTotemButton_Water6" inherits="ArchiTotem_ButtonTemplate" hidden="true"/>
 
-      --					Air
+      <!--					AIR  -->
 
       <Button name="ArchiTotemButton_Air1" inherits="ArchiTotem_ButtonTemplate">
         <Layers>

@@ -7,6 +7,28 @@ ArchiTotemCastedElement = nil;
 ArchiTotemCastedButton = nil;
 ArchiTotemActiveTotem = { };
 
+local ArchiTotemPopout = {
+  "ArchiTotemButton_Earth2",
+  "ArchiTotemButton_Earth3",
+  "ArchiTotemButton_Earth4",
+  "ArchiTotemButton_Earth5",
+  "ArchiTotemButton_Fire2",
+  "ArchiTotemButton_Fire3",
+  "ArchiTotemButton_Fire4",
+  "ArchiTotemButton_Fire5",
+  "ArchiTotemButton_Water2",
+  "ArchiTotemButton_Water3",
+  "ArchiTotemButton_Water4",
+  "ArchiTotemButton_Water5",
+  "ArchiTotemButton_Water6",
+  "ArchiTotemButton_Air2",
+  "ArchiTotemButton_Air3",
+  "ArchiTotemButton_Air4",
+  "ArchiTotemButton_Air5",
+  "ArchiTotemButton_Air6",
+  "ArchiTotemButton_Air7",
+}
+
 if (not ArchiTotem_Options) then
 
   ArchiTotem_Options = { };
@@ -236,12 +258,18 @@ if (not ArchiTotem_TotemData) then
 
 end
 
-
+function ArchiTotem_Noop()
+  return
+end
 
 function ArchiTotem_OnLoad()
   local _, class = UnitClass("player")
   if class == "SHAMAN" then
     this:RegisterForDrag("RightButton");
+    for _,popout in ipairs(ArchiTotemPopout) do
+      getglobal(popout):SetScript("OnDragStart",ArchiTotem_Noop)
+      getglobal(popout):SetScript("OnDragStop",ArchiTotem_Noop)
+    end
     this:RegisterEvent("VARIABLES_LOADED");
     this:RegisterEvent("SPELLCAST_STOP");
     this:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN");
@@ -792,6 +820,10 @@ function ArchiTotem_Command(cmd)
     DEFAULT_CHAT_FRAME:AddMessage("/at bottomcast - Toggles moving totems to the bottom line when cast");
     DEFAULT_CHAT_FRAME:AddMessage("/at timers - Toggles showing timers");
     DEFAULT_CHAT_FRAME:AddMessage("/at tooltip - Toggles showing tooltips");
+    DEFAULT_CHAT_FRAME:AddMessage("Moving the bar:");
+    DEFAULT_CHAT_FRAME:AddMessage("Ctrl-RightClick and Drag any of the main buttons");
+    DEFAULT_CHAT_FRAME:AddMessage("Ordering totems of same element:");
+    DEFAULT_CHAT_FRAME:AddMessage("Ctrl-LeftClick any of the buttons");
   end
 end
 
