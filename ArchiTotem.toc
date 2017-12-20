@@ -7,4 +7,6 @@
 ## X-Credits: RoadBlock cleanup, Lichery - added localization, cleanup
 ## SavedVariablesPerCharacter: ArchiTotem_TotemData, ArchiTotem_Options
 
+Locale\Localization.xml
+
 ArchiTotem.xml
