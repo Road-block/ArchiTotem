@@ -313,7 +313,7 @@ function ArchiTotem_UpdateCooldown(Buttonname, duration)
 		CooldownFrame_SetTimer(cooldown, start, duration, enable)
 		if ArchiTotem_Options["Debug"] then ArchiTotem_Print(start .. "-" .. duration .. "-" .. enable) end
 		
-		else
+	else
 		if ArchiTotem_Options["Debug"] then ArchiTotem_Print("+++++" .. Buttonname .. " NOT FOUND") end
 	end
 end
@@ -326,9 +326,9 @@ function ArchiTotem_OnEvent(event)
 		ArchiTotem_SetDirection(ArchiTotem_Options["Apperance"].direction)
 		ArchiTotem_SetScale(ArchiTotem_Options["Apperance"].scale)
 		ArchiTotem_Order(ArchiTotem_Options["Order"].first, ArchiTotem_Options["Order"].second, ArchiTotem_Options["Order"].third, ArchiTotem_Options["Order"].forth)
-		elseif event == "CHAT_MSG_SPELL_FAILED_LOCALPLAYER" then
+	elseif event == "CHAT_MSG_SPELL_FAILED_LOCALPLAYER" then
 		ArchiTotemCasted = 0
-		elseif event == "SPELLCAST_STOP" then
+	elseif event == "SPELLCAST_STOP" then
 		if ArchiTotemCasted == 1 then
 			ArchiTotemActiveTotem[ArchiTotemCastedElement] = ArchiTotemCastedTotem
 			ArchiTotemActiveTotem[ArchiTotemCastedElement].casted = GetTime()
@@ -384,7 +384,7 @@ function ArchiTotem_OnEnter()
 				_G["ArchiTotemButton_" .. v .. i]:Show()
 			end
 		end
-		else
+	else
 		local totemElement = string.sub(this:GetName(), 1, -2)
 		-- ArchiTotemButton_Earth, ArchiTotemButton_Fire..
 		local maxOfElement = string.sub(this:GetName(), 18, 20)
@@ -442,7 +442,7 @@ function ArchiTotem_OnClick()
 			-- Switch them (the clicked and the one below)
 		end
 		
-		elseif IsControlKeyDown() then
+	elseif IsControlKeyDown() then
 		local overTotemNumber = string.sub(this:GetName(), -1, -1) + 1
 		-- Number of the totem over the one you clicked
 		local overTotem = string.sub(this:GetName(), 1, -2) .. overTotemNumber
@@ -455,7 +455,7 @@ function ArchiTotem_OnClick()
 			-- Switch them (the clicked and the one above)
 		end
 		
-		else
+	else
 		ArchiTotem_CastTotem()
 	end
 end
@@ -526,7 +526,7 @@ function ArchiTotem_UpdateShown()
 			-- For all buttons of that element
 			if i <= ArchiTotem_Options[threeLetterElement].shown then
 				_G["ArchiTotemButton_" .. v .. i]:Show()
-				else
+			else
 				_G["ArchiTotemButton_" .. v .. i]:Hide()
 			end
 		end
@@ -557,7 +557,7 @@ function ArchiTotem_SetDirection(dir)
 		FireDurationText:SetPoint("CENTER", ArchiTotemButton_Fire1, "CENTER", 0, 26)
 		WaterDurationText:SetPoint("CENTER", ArchiTotemButton_Water1, "CENTER", 0, 26)
 		AirDurationText:SetPoint("CENTER", ArchiTotemButton_Air1, "CENTER", 0, 26)
-		elseif dir == "up" then
+	elseif dir == "up" then
 		anchor1 = "BOTTOMLEFT"
 		anchor2 = "TOPLEFT"
 		EarthDurationText:SetPoint("CENTER", ArchiTotemButton_Earth1, "CENTER", 0, -26)
@@ -643,8 +643,7 @@ function ArchiTotem_OnUpdate(arg1)
 			if GetTime() >(v.casted + v.duration) then
 				v = nil
 				_G[k .. "DurationText"]:Hide()
-				else
-				local minutes = 00
+			else
 				local seconds = string.format("%.0f",(v.duration +(v.casted - GetTime())))
 				local minutes = string.format("0%.0f",((seconds - mod(seconds, 60)) / 60))
 				local seconds = mod(seconds, 60)
@@ -657,12 +656,12 @@ function ArchiTotem_OnUpdate(arg1)
 			-- Handles the cooldowns of all totems
 			if ArchiTotem_Options["Apperance"].shownumericcooldowns == true then
 				if v.cooldownstarted == nil then
-					else
+				else
 					if GetTime() > (v.cooldownstarted + v.cooldown) then
 						_G[k .. "CooldownText"]:Hide()
 						_G[k .. "CooldownBg"]:Hide()
 						v.cooldownstarted = nil
-						else
+					else
 						_G[k .. "CooldownBg"]:Show()
 						_G[k .. "CooldownText"]:Show()
 						local seconds = string.format("%.0f",(v.cooldown +(v.cooldownstarted - GetTime())))
@@ -670,7 +669,7 @@ function ArchiTotem_OnUpdate(arg1)
 						local seconds = mod(seconds, 60)
 						if minutes ~= "0" then
 							_G[k .. "CooldownText"]:SetText(minutes .. ":" .. seconds)
-							else
+						else
 							_G[k .. "CooldownText"]:SetText(seconds)
 						end
 					end
@@ -701,81 +700,81 @@ function ArchiTotem_Command(cmd)
 				ArchiTotem_UpdateShown()
 				ArchiTotem_Print(L["Earth totems shown: "] .. arg[3])
 			end
-			elseif arg[2] == "fire" then
+		elseif arg[2] == "fire" then
 			if tonumber(arg[3]) > 0 and tonumber(arg[3]) <= 5 then
 				ArchiTotem_Options["Fir"].shown = tonumber(arg[3])
 				ArchiTotem_UpdateShown()
 				ArchiTotem_Print(L["Fire totems shown: "] .. arg[3])
 			end
-			elseif arg[2] == "water" then
+		elseif arg[2] == "water" then
 			if tonumber(arg[3]) > 0 and tonumber(arg[3]) <= 6 then
 				ArchiTotem_Options["Wat"].shown = tonumber(arg[3])
 				ArchiTotem_UpdateShown()
 				ArchiTotem_Print(L["Water totems shown: "] .. arg[3])
 			end
-			elseif arg[2] == "air" then
+		elseif arg[2] == "air" then
 			if tonumber(arg[3]) > 0 and tonumber(arg[3]) <= 7 then
 				ArchiTotem_Options["Air"].shown = tonumber(arg[3])
 				ArchiTotem_UpdateShown()
 				-- ////////////////////////////////////////////////////////////////////
 				ArchiTotem_Print(L["Air totems shown: "] .. arg[3])
 			end
-			else
+		else
 			ArchiTotem_Print(L["Elements must be written in english!"].." <Earth, Fire, Water, Air>", "error")
 		end
-		elseif arg[1] == "direction" then
+	elseif arg[1] == "direction" then
 		-- /at direction, which direction the totems should go on mouseover
 		if arg[2] == "down" then
 			ArchiTotem_SetDirection("down")
 			ArchiTotem_Print(L["Direction set to: Down"])
-			elseif arg[2] == "up" then
+		elseif arg[2] == "up" then
 			ArchiTotem_SetDirection("up")
 			ArchiTotem_Print(L["Direction set to: Up"])
-			else
+		else
 			ArchiTotem_Print(L["Direction must be down or up!"], "error")
 		end
-		elseif arg[1] == "order" then
+	elseif arg[1] == "order" then
 		-- /at order, which order the totems have, left to right
 		ArchiTotem_Order(arg[2], arg[3], arg[4], arg[5])
 		if arg[2] and arg[3] and arg[4] and arg[5] then -- check english elements
 			ArchiTotem_Print(L["Order set to: "] .. arg[2] .. ", " .. arg[3] .. ", " .. arg[4] .. ", " .. arg[5])
 		end
-		elseif arg[1] == "scale" then
+	elseif arg[1] == "scale" then
 		-- /at scale, what scale the frame has
 		if not arg[2] then
 			return ArchiTotem_Print(L["Specify scale"], "error")
-			elseif type(tonumber(arg[2])) ~= "number" then
+		elseif type(tonumber(arg[2])) ~= "number" then
 			return ArchiTotem_Print(L["Scale must be a number!"], "error")
 		end
 		if arg[3] then
 			ArchiTotem_SetScale(arg[2] .. "." .. arg[3])
 			ArchiTotem_Print(L["Scale set to: "] .. arg[2] .. "." .. arg[3])
-			else
+		else
 			ArchiTotem_SetScale(arg[2])
 			ArchiTotem_Print(L["Scale set to: "] .. arg[2])
 		end
-		elseif arg[1] == "showall" then
+	elseif arg[1] == "showall" then
 		-- /at showall, toggle showing of all totems on mouseover
 		if ArchiTotem_Options["Apperance"].allonmouseover == false then
 			ArchiTotem_Options["Apperance"].allonmouseover = true
 			ArchiTotem_Print(L["Showing all totems on mouseover"])
-			else
+		else
 			ArchiTotem_Options["Apperance"].allonmouseover = false
 			ArchiTotem_Print(L["Showing only one element on mouseover"])
 		end
-		elseif arg[1] == "bottomcast" then
+	elseif arg[1] == "bottomcast" then
 		if ArchiTotem_Options["Apperance"].bottomoncast == false then
 			ArchiTotem_Options["Apperance"].bottomoncast = true
 			ArchiTotem_Print(L["Totems will move the the bottom line when cast"])
-			else
+		else
 			ArchiTotem_Options["Apperance"].bottomoncast = false
 			ArchiTotem_Print(L["Totems will stay where they are when cast"])
 		end
-		elseif arg[1] == "timers" then
+	elseif arg[1] == "timers" then
 		if ArchiTotem_Options["Apperance"].shownumericcooldowns == false then
 			ArchiTotem_Options["Apperance"].shownumericcooldowns = true
 			ArchiTotem_Print(L["Timers are now turned on"])
-			else
+		else
 			ArchiTotem_Options["Apperance"].shownumericcooldowns = false
 			ArchiTotem_Print(L["Timers are now turned off"])
 			for k, v in ArchiTotem_TotemData do
@@ -787,15 +786,15 @@ function ArchiTotem_Command(cmd)
 				_G[k .. "DurationText"]:Hide()
 			end
 		end
-		elseif arg[1] == "tooltip" then
+	elseif arg[1] == "tooltip" then
 		if ArchiTotem_Options["Apperance"].showtooltips == false then
 			ArchiTotem_Options["Apperance"].showtooltips = true
 			ArchiTotem_Print(L["Tooltips are now turned on"])
-			else
+		else
 			ArchiTotem_Options["Apperance"].showtooltips = false
 			ArchiTotem_Print(L["Tooltips are now turned off"])
 		end
-		elseif arg[1] == "debug" then
+	elseif arg[1] == "debug" then
 		if ArchiTotem_Options["Debug"] == false then
 			ArchiTotem_Options["Debug"] = true
 			ArchiTotem_Print(L["Debuging are now turned on"])
@@ -803,7 +802,7 @@ function ArchiTotem_Command(cmd)
 			ArchiTotem_Options["Debug"] = false
 			ArchiTotem_Print(L["Debuging are now turned off"])
 		end
-		elseif arg[1] == nil then
+	elseif arg[1] == nil then
 		ArchiTotem_Print(L["Available commands:"])
 		ArchiTotem_Print(L["/at set <earth/fire/water/air> # - Sets the totems shown of that element to #."])
 		ArchiTotem_Print(L["/at direction <up/down> - Set the direction totems pop up."])
@@ -819,7 +818,7 @@ function ArchiTotem_Command(cmd)
 		ArchiTotem_Print(L["Ctrl-RightClick and Drag any of the main buttons"])
 		ArchiTotem_Print(L["Ordering totems of same element:"])
 		ArchiTotem_Print(L["Ctrl-LeftClick any of the buttons"])
-		else
+	else
 		ArchiTotem_Print(L["Unavailable command. Type /at for help."], "error")		
 	end
 end
