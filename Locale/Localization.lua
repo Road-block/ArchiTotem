@@ -1,70 +1,14 @@
-BINDING_NAME_CAST_EARTH_TOTEM = "Cast Earth Totem"
-BINDING_NAME_CAST_FIRE_TOTEM = "Cast Fire Totem"
-BINDING_NAME_CAST_WATER_TOTEM = "Cast Water Totem"
-BINDING_NAME_CAST_AIR_TOTEM = "Cast Air Totem"
-
-ArchiTotemLocale = {
-	["Earthbind Totem"] = "Earthbind Totem",
-	["Tremor Totem"] = "Tremor Totem",
-	["Strength of Earth Totem"] = "Strength of Earth Totem",
-	["Stoneskin Totem"] = "Stoneskin Totem",
-	["Stoneclaw Totem"] = "Stoneclaw Totem",
-	["Searing Totem"] = "Searing Totem",
-	["Fire Nova Totem"] = "Fire Nova Totem",
-	["Magma Totem"] = "Magma Totem",
-	["Frost Resistance Totem"] = "Frost Resistance Totem",
-	["Flametongue Totem"] = "Flametongue Totem",
-	["Mana Spring Totem"] = "Mana Spring Totem",
-	["Mana Tide Totem"] = "Mana Tide Totem",
-	["Fire Resistance Totem"] = "Fire Resistance Totem",
-	["Poison Cleansing Totem"] = "Poison Cleansing Totem",
-	["Disease Cleansing Totem"] = "Disease Cleansing Totem",
-	["Healing Stream Totem"] = "Healing Stream Totem",
-	["Tranquil Air Totem"] = "Tranquil Air Totem",
-	["Grounding Totem"] = "Grounding Totem",
-	["Windfury Totem"] = "Windfury Totem",
-	["Grace of Air Totem"] = "Grace of Air Totem",
-	["Nature Resistance Totem"] = "Nature Resistance Totem",
-	["Windwall Totem"] = "Windwall Totem",
-	["Sentry Totem"] = "Sentry Totem",	
-	
-	["ver."] = "ver.",
-	["loaded"] = "loaded",
-	["Earth totems shown: "] = "Earth totems shown: ",
-	["Fire totems shown: "] = "Fire totems shown: ",
-	["Water totems shown: "] = "Water totems shown: ",
-	["Air totems shown: "] = "Air totems shown: ",
-	["Direction set to: Down"] = "Direction set to: Down",
-	["Direction set to: Up"] = "Direction set to: Up",
-	["Order set to: "] = "Order set to: ",
-	["Scale set to: "] = "Scale set to: ",
-	["Showing all totems on mouseover"] = "Showing all totems on mouseover",
-	["Showing only one element on mouseover"] = "Showing only one element on mouseover",
-	["Totems will move the the bottom line when cast"] = "Totems will move the the bottom line when cast",
-	["Totems will stay where they are when cast"] = "Totems will stay where they are when cast",
-	["Timers are now turned on"] = "Timers are now turned on",
-	["Timers are now turned off"] = "Timers are now turned off",
-	["Tooltips are now turned on"] = "Tooltips are now turned on",
-	["Tooltips are now turned off"] = "Tooltips are now turned off",
-	["Debuging are now turned on"] = "Debuging are now turned on",
-	["Debuging are now turned off"] = "Debuging are now turned off",
-	["Available commands:"] = "Available commands:",
-	["/at set <earth/fire/water/air> # - Sets the totems shown of that element to #."] = "/at set <earth/fire/water/air> # - Sets the totems shown of that element to #.",
-	["/at direction <up/down> - Set the direction totems pop up."] = "/at direction <up/down> - Set the direction totems pop up.",
-	["/at order <element 1, element 2, element 3, element 4> - Sets the order of the totems, from left to right."] = "/at order <element 1, element 2, element 3, element 4> - Sets the order of the totems, from left to right.",
-	["/at scale # - Sets the scale of ArchiTotem, default is 1."] = "/at scale # - Sets the scale of ArchiTotem, default is 1.",
-	["/at showall - Toggles show all mode, displaying all totems on mouseover."] = "/at showall - Toggles show all mode, displaying all totems on mouseover.",
-	["/at bottomcast - Toggles moving totems to the bottom line when cast"] = "/at bottomcast - Toggles moving totems to the bottom line when cast",
-	["/at timers - Toggles showing timers"] = "/at timers - Toggles showing timers",
-	["/at tooltip - Toggles showing tooltips"] = "/at tooltip - Toggles showing tooltips",
-	["/at debug - Toggles debuging"] = "/at debug - Toggles debuging",
-	["Moving the bar:"] = "Moving the bar:",
-	["Ctrl-RightClick and Drag any of the main buttons"] = "Ctrl-RightClick and Drag any of the main buttons",
-	["Ordering totems of same element:"] = "Ordering totems of same element:",
-	["Ctrl-LeftClick any of the buttons"] = "Ctrl-LeftClick any of the buttons",
-	["Unavailable command. Type /at for help."] = "Unavailable command. Type /at for help.",		
-	["Elements must be written in english!"] = "Elements must be written in english!",
-	["Direction must be down or up!"] = "Direction must be down or up!",
-	["Scale must be a number!"] = "Scale must be a number!",
-	["Specify scale"] = "Specify scale",
-}
+local LOCALE = GetLocale()
+ArchiTotemLocale = setmetatable({},{__index = function(t,k)
+  local v = tostring(k)
+  rawset(t,k,v)
+  if (LOCALE ~= "enUS") and (LOCALE ~= "enGB") then
+  	ArchiTotem_Print(string.format(" %q not found for %s",v,LOCALE),"debug")
+  end
+  return v
+end})
+local L = ArchiTotemLocale
+BINDING_NAME_CAST_EARTH_TOTEM = L["Cast Earth Totem"]
+BINDING_NAME_CAST_FIRE_TOTEM = L["Cast Fire Totem"]
+BINDING_NAME_CAST_WATER_TOTEM = L["Cast Water Totem"]
+BINDING_NAME_CAST_AIR_TOTEM = L["Cast Air Totem"]
