@@ -5,35 +5,13 @@ local author = GetAddOnMetadata("ArchiTotem", "Author")
 
 local _, class = UnitClass("player")
 local CLOCK_UPDATE_RATE = 0.1
-ArchiTotemCasted = nil
-ArchiTotemCastedTotem = nil
-ArchiTotemCastedElement = nil
-ArchiTotemCastedButton = nil
-ArchiTotemActiveTotem = {}
+local ArchiTotemCasted = nil
+local ArchiTotemCastedTotem = nil
+local ArchiTotemCastedElement = nil
+local ArchiTotemCastedButton = nil
+local ArchiTotemActiveTotem = {}
 
 local totemElements = { "Earth", "Fire", "Water", "Air" }
-
-local ArchiTotemPopout = {
-	"ArchiTotemButton_Earth2",
-	"ArchiTotemButton_Earth3",
-	"ArchiTotemButton_Earth4",
-	"ArchiTotemButton_Earth5",
-	"ArchiTotemButton_Fire2",
-	"ArchiTotemButton_Fire3",
-	"ArchiTotemButton_Fire4",
-	"ArchiTotemButton_Fire5",
-	"ArchiTotemButton_Water2",
-	"ArchiTotemButton_Water3",
-	"ArchiTotemButton_Water4",
-	"ArchiTotemButton_Water5",
-	"ArchiTotemButton_Water6",
-	"ArchiTotemButton_Air2",
-	"ArchiTotemButton_Air3",
-	"ArchiTotemButton_Air4",
-	"ArchiTotemButton_Air5",
-	"ArchiTotemButton_Air6",
-	"ArchiTotemButton_Air7",
-}
 
 if not ArchiTotem_Options then
 	
@@ -74,195 +52,54 @@ if not ArchiTotem_Options then
 end
 
 if not ArchiTotem_TotemData then
+	ArchiTotem_TotemDataTable = {
+		-- {icon, name, duration, cooldown, cooldownstarted, casted}
+		['Earth'] = {
+			[1] = {'Spell_Nature_StrengthOfEarthTotem02', 'Earthbind Totem', 45, 14, nil, nil},
+			[2] = {'Spell_Nature_TremorTotem', 'Tremor Totem', 120, 0, nil, nil},
+			[3] = {'Spell_Nature_EarthBindTotem', 'Strength of Earth Totem', 120, 0, nil, nil},
+			[4] = {'Spell_Nature_StoneSkinTotem', 'Stoneskin Totem', 120, 0, nil, nil},
+			[5] = {'Spell_Nature_StoneClawTotem', 'Stoneclaw Totem', 15, 30, nil, nil}
+		},
+		['Fire'] = {
+			[1] = {'Spell_Fire_SearingTotem', 'Searing Totem', 55, 0, nil, nil},
+			[2] = {'Spell_Fire_SealOfFire', 'Fire Nova Totem', 5, 15, nil, nil},
+			[3] = {'Spell_Fire_SelfDestruct', 'Magma Totem', 20, 0, nil, nil},
+			[4] = {'Spell_FrostResistanceTotem_01', 'Frost Resistance Totem', 120, 0, nil, nil},
+			[5] = {'Spell_Nature_GuardianWard', 'Flametongue Totem', 120, 0, nil, nil}
+		},
+		['Water'] = {
+			[1] = {'Spell_Nature_ManaRegenTotem', 'Mana Spring Totem', 60, 0, nil, nil},
+			[2] = {'Spell_Frost_SummonWaterElemental', 'Mana Tide Totem', 12, 300, nil, nil},
+			[3] = {'Spell_FireResistanceTotem_01', 'Fire Resistance Totem', 120, 0, nil, nil},
+			[4] = {'Spell_Nature_PoisonCleansingTotem', 'Poison Cleansing Totem', 120, 0, nil, nil},
+			[5] = {'Spell_Nature_DiseaseCleansingTotem', 'Disease Cleansing Totem', 120, 0, nil, nil},
+			[6] = {'INV_Spear_04', 'Healing Stream Totem', 60, 0, nil, nil}
+		},
+		['Air'] = {
+			[1] = {'Spell_Nature_Brilliance', 'Tranquil Air Totem', 120, 0, nil, nil},
+			[2] = {'Spell_Nature_GroundingTotem', 'Grounding Totem', 45, 15, nil, nil},
+			[3] = {'Spell_Nature_Windfury', 'Windfury Totem', 120, 0, nil, nil},
+			[4] = {'Spell_Nature_InvisibilityTotem', 'Grace of Air Totem', 120, 0, nil, nil},
+			[5] = {'Spell_Nature_NatureResistanceTotem', 'Nature Resistance Totem', 120, 0, nil, nil},
+			[6] = {'Spell_Nature_EarthBind', 'Windwall Totem', 120, 0, nil, nil},
+			[7] = {'Spell_Nature_RemoveCurse', 'Sentry Totem', 300, 0, nil, nil}
+		}
+	}
+	
 	ArchiTotem_TotemData = {}
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Earth1"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Earth1"].icon = "Interface\\Icons\\Spell_Nature_StrengthOfEarthTotem02"
-	ArchiTotem_TotemData["ArchiTotemButton_Earth1"].name = "Earthbind Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Earth1"].duration = 45
-	ArchiTotem_TotemData["ArchiTotemButton_Earth1"].cooldown = 15
-	ArchiTotem_TotemData["ArchiTotemButton_Earth1"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Earth1"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Earth2"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Earth2"].icon = "Interface\\Icons\\Spell_Nature_TremorTotem"
-	ArchiTotem_TotemData["ArchiTotemButton_Earth2"].name = "Tremor Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Earth2"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Earth2"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Earth2"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Earth2"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Earth3"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Earth3"].icon = "Interface\\Icons\\Spell_Nature_EarthBindTotem"
-	ArchiTotem_TotemData["ArchiTotemButton_Earth3"].name = "Strength of Earth Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Earth3"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Earth3"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Earth3"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Earth3"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Earth4"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Earth4"].icon = "Interface\\Icons\\Spell_Nature_StoneSkinTotem"
-	ArchiTotem_TotemData["ArchiTotemButton_Earth4"].name = "Stoneskin Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Earth4"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Earth4"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Earth4"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Earth4"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Earth5"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Earth5"].icon = "Interface\\Icons\\Spell_Nature_StoneClawTotem"
-	ArchiTotem_TotemData["ArchiTotemButton_Earth5"].name = "Stoneclaw Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Earth5"].duration = 15
-	ArchiTotem_TotemData["ArchiTotemButton_Earth5"].cooldown = 30
-	ArchiTotem_TotemData["ArchiTotemButton_Earth5"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Earth5"].casted = nil
-	
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Fire1"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Fire1"].icon = "Interface\\Icons\\Spell_Fire_SearingTotem"
-	ArchiTotem_TotemData["ArchiTotemButton_Fire1"].name = "Searing Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Fire1"].duration = 55
-	ArchiTotem_TotemData["ArchiTotemButton_Fire1"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Fire1"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Fire1"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Fire2"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Fire2"].icon = "Interface\\Icons\\Spell_Fire_SealOfFire"
-	ArchiTotem_TotemData["ArchiTotemButton_Fire2"].name = "Fire Nova Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Fire2"].duration = 5
-	ArchiTotem_TotemData["ArchiTotemButton_Fire2"].cooldown = 15
-	ArchiTotem_TotemData["ArchiTotemButton_Fire2"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Fire2"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Fire3"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Fire3"].icon = "Interface\\Icons\\Spell_Fire_SelfDestruct"
-	ArchiTotem_TotemData["ArchiTotemButton_Fire3"].name = "Magma Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Fire3"].duration = 20
-	ArchiTotem_TotemData["ArchiTotemButton_Fire3"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Fire3"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Fire3"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Fire4"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Fire4"].icon = "Interface\\Icons\\Spell_FrostResistanceTotem_01"
-	ArchiTotem_TotemData["ArchiTotemButton_Fire4"].name = "Frost Resistance Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Fire4"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Fire4"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Fire4"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Fire4"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Fire5"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Fire5"].icon = "Interface\\Icons\\Spell_Nature_GuardianWard"
-	ArchiTotem_TotemData["ArchiTotemButton_Fire5"].name = "Flametongue Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Fire5"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Fire5"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Fire5"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Fire5"].casted = nil
-	
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Water1"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Water1"].icon = "Interface\\Icons\\Spell_Nature_ManaRegenTotem"
-	ArchiTotem_TotemData["ArchiTotemButton_Water1"].name = "Mana Spring Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Water1"].duration = 60
-	ArchiTotem_TotemData["ArchiTotemButton_Water1"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Water1"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Water1"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Water2"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Water2"].icon = "Interface\\Icons\\Spell_Frost_SummonWaterElemental"
-	ArchiTotem_TotemData["ArchiTotemButton_Water2"].name = "Mana Tide Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Water2"].duration = 12
-	ArchiTotem_TotemData["ArchiTotemButton_Water2"].cooldown = 300
-	ArchiTotem_TotemData["ArchiTotemButton_Water2"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Water2"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Water3"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Water3"].icon = "Interface\\Icons\\Spell_FireResistanceTotem_01"
-	ArchiTotem_TotemData["ArchiTotemButton_Water3"].name = "Fire Resistance Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Water3"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Water3"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Water3"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Water3"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Water4"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Water4"].icon = "Interface\\Icons\\Spell_Nature_PoisonCleansingTotem"
-	ArchiTotem_TotemData["ArchiTotemButton_Water4"].name = "Poison Cleansing Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Water4"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Water4"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Water4"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Water4"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Water5"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Water5"].icon = "Interface\\Icons\\Spell_Nature_DiseaseCleansingTotem"
-	ArchiTotem_TotemData["ArchiTotemButton_Water5"].name = "Disease Cleansing Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Water5"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Water5"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Water5"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Water5"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Water6"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Water6"].icon = "Interface\\Icons\\INV_Spear_04"
-	ArchiTotem_TotemData["ArchiTotemButton_Water6"].name = "Healing Stream Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Water6"].duration = 60
-	ArchiTotem_TotemData["ArchiTotemButton_Water6"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Water6"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Water6"].casted = nil
-	
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Air1"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Air1"].icon = "Interface\\Icons\\Spell_Nature_Brilliance"
-	ArchiTotem_TotemData["ArchiTotemButton_Air1"].name = "Tranquil Air Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Air1"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Air1"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Air1"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Air1"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Air2"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Air2"].icon = "Interface\\Icons\\Spell_Nature_GroundingTotem"
-	ArchiTotem_TotemData["ArchiTotemButton_Air2"].name = "Grounding Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Air2"].duration = 45
-	ArchiTotem_TotemData["ArchiTotemButton_Air2"].cooldown = 15
-	ArchiTotem_TotemData["ArchiTotemButton_Air2"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Air2"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Air3"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Air3"].icon = "Interface\\Icons\\Spell_Nature_Windfury"
-	ArchiTotem_TotemData["ArchiTotemButton_Air3"].name = "Windfury Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Air3"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Air3"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Air3"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Air3"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Air4"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Air4"].icon = "Interface\\Icons\\Spell_Nature_InvisibilityTotem"
-	ArchiTotem_TotemData["ArchiTotemButton_Air4"].name = "Grace of Air Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Air4"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Air4"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Air4"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Air4"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Air5"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Air5"].icon = "Interface\\Icons\\Spell_Nature_NatureResistanceTotem"
-	ArchiTotem_TotemData["ArchiTotemButton_Air5"].name = "Nature Resistance Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Air5"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Air5"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Air5"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Air5"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Air6"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Air6"].icon = "Interface\\Icons\\Spell_Nature_EarthBind"
-	ArchiTotem_TotemData["ArchiTotemButton_Air6"].name = "Windwall Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Air6"].duration = 120
-	ArchiTotem_TotemData["ArchiTotemButton_Air6"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Air6"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Air6"].casted = nil
-	
-	ArchiTotem_TotemData["ArchiTotemButton_Air7"] = {}
-	ArchiTotem_TotemData["ArchiTotemButton_Air7"].icon = "Interface\\Icons\\Spell_Nature_RemoveCurse"
-	ArchiTotem_TotemData["ArchiTotemButton_Air7"].name = "Sentry Totem"
-	ArchiTotem_TotemData["ArchiTotemButton_Air7"].duration = 300
-	ArchiTotem_TotemData["ArchiTotemButton_Air7"].cooldown = 0
-	ArchiTotem_TotemData["ArchiTotemButton_Air7"].cooldownstarted = nil
-	ArchiTotem_TotemData["ArchiTotemButton_Air7"].casted = nil
-	
+	for _, element in pairs(totemElements) do
+		for i, v in pairs(ArchiTotem_TotemDataTable[element]) do
+			local TotemButton = 'ArchiTotemButton_'..element..i
+			ArchiTotem_TotemData[TotemButton] = {}
+			ArchiTotem_TotemData[TotemButton].icon = "Interface\\Icons\\"..v[1]
+			ArchiTotem_TotemData[TotemButton].name = v[2]
+			ArchiTotem_TotemData[TotemButton].duration = v[3]
+			ArchiTotem_TotemData[TotemButton].cooldown = v[4]
+			ArchiTotem_TotemData[TotemButton].cooldownstarted = v[5]
+			ArchiTotem_TotemData[TotemButton].casted = v[6]			
+		end
+	end
 end
 
 function ArchiTotem_Print(msg, type)
@@ -274,7 +111,7 @@ function ArchiTotem_Print(msg, type)
 	else
 		prefix = "|CFF20B2AA[ArchiTotem]|r  "
 	end
-	return DEFAULT_CHAT_FRAME:AddMessage(prefix..msg)
+	return ChatFrame1:AddMessage(prefix..msg)
 end
 
 function ArchiTotem_Noop()
@@ -284,9 +121,11 @@ end
 function ArchiTotem_OnLoad()
 	if class == "SHAMAN" then
 		this:RegisterForDrag("RightButton")
-		for _,popout in ipairs(ArchiTotemPopout) do
-			_G[popout]:SetScript("OnDragStart", ArchiTotem_Noop)
-			_G[popout]:SetScript("OnDragStop", ArchiTotem_Noop)
+		for _, element in pairs(totemElements) do
+			for i = 2, table.getn(ArchiTotem_TotemDataTable[element]) do
+				_G['ArchiTotemButton_'..element..i]:SetScript("OnDragStart", ArchiTotem_Noop)
+				_G['ArchiTotemButton_'..element..i]:SetScript("OnDragStop", ArchiTotem_Noop)
+			end
 		end
 		this:RegisterEvent("VARIABLES_LOADED")
 		this:RegisterEvent("SPELLCAST_STOP")
@@ -296,7 +135,7 @@ function ArchiTotem_OnLoad()
 		SLASH_ARCHITOTEM2 = "/at"
 		-- A shortcut or alias
 		SlashCmdList["ARCHITOTEM"] = ArchiTotem_Command
-		DEFAULT_CHAT_FRAME:AddMessage("|CFF20B2AAArchiTotem|r "..author.." "..L["ver."].." "..version.." "..L["loaded"]..".")
+		ArchiTotem_Print(author.." "..L["ver."].." "..version.." "..L["loaded"]..".")
 	else
 		this:UnregisterAllEvents()
 		ArchiTotemFrame:Hide()
@@ -306,13 +145,12 @@ end
 function ArchiTotem_UpdateCooldown(Buttonname, duration)
 	if ArchiTotem_Options["Debug"] then ArchiTotem_Print("+++++" .. Buttonname .. "+++++", "debug") end
 	local cooldown = _G[Buttonname .. "Cooldown"]
-	if cooldown ~= nil then
+	if cooldown then
 		local start = GetTime()
 		if duration == 0 then duration = 1.5 end
 		local enable = 1
 		CooldownFrame_SetTimer(cooldown, start, duration, enable)
 		if ArchiTotem_Options["Debug"] then ArchiTotem_Print(start .. "-" .. duration .. "-" .. enable) end
-		
 	else
 		if ArchiTotem_Options["Debug"] then ArchiTotem_Print("+++++" .. Buttonname .. " NOT FOUND") end
 	end
@@ -336,7 +174,7 @@ function ArchiTotem_OnEvent(event)
 			
 			ArchiTotem_UpdateAllCooldowns(ArchiTotemCastedButton)
 			
-			if ArchiTotem_Options["Apperance"].bottomoncast == true then
+			if ArchiTotem_Options["Apperance"].bottomoncast then
 				local buttonNumber = tonumber(string.sub(ArchiTotemCastedButton, -1, -1))
 				if buttonNumber > 1 then
 					local topbutton, bottombutton
@@ -345,7 +183,7 @@ function ArchiTotem_OnEvent(event)
 						topbutton = string.sub(ArchiTotemCastedButton, 1, -2) .. i
 						bottombutton = string.sub(ArchiTotemCastedButton, 1, -2) ..(i - 1)
 						ArchiTotem_Switch(topbutton, bottombutton)
-						if ArchiTotem_TotemData[topbutton].cooldownstarted == nil then
+						if not ArchiTotem_TotemData[topbutton].cooldownstarted then
 							local duration = 1.5
 							CooldownFrame_SetTimer(_G[topbutton .. "Cooldown"], GetTime(), duration, 1)
 						end
@@ -374,7 +212,7 @@ end
 
 function ArchiTotem_OnEnter()
 	-- When entering a button, show all totems of that element
-	if ArchiTotem_Options["Apperance"].allonmouseover == true then
+	if ArchiTotem_Options["Apperance"].allonmouseover then
 		for k, v in totemElements do
 			-- For all the elements
 			local threeLetterElement = string.sub(v, 1, 3)
@@ -400,7 +238,7 @@ function ArchiTotem_OnEnter()
 	end
 	
 	-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	if ArchiTotem_Options["Apperance"].showtooltips == true then
+	if ArchiTotem_Options["Apperance"].showtooltips then
 		local tooltipspellID = ArchiTotem_GetSpellId(ArchiTotem_TotemData[this:GetName()].name)
 		if tooltipspellID > 0 then
 			local spellName = GetSpellName(tooltipspellID, BOOKTYPE_SPELL)
@@ -466,7 +304,7 @@ function ArchiTotem_CastTotem()
 	ArchiTotemCastedElement = string.sub(this:GetName(), 18, -2)
 	ArchiTotemCastedButton = this:GetName()
 	
-	if ArchiTotemCastedTotem.casted == nil then ArchiTotemCastedTotem.casted = GetTime() - ArchiTotemCastedTotem.cooldown end
+	if not ArchiTotemCastedTotem.casted then ArchiTotemCastedTotem.casted = GetTime() - ArchiTotemCastedTotem.cooldown end
 	local mincooldown = ArchiTotemCastedTotem.cooldown
 	if mincooldown < 1.5 then mincooldown = 1.5 end
 	local localizeSpell = L[ArchiTotem_TotemData[this:GetName()].name]
@@ -582,7 +420,7 @@ function ArchiTotem_SetDirection(dir)
 end
 
 function ArchiTotem_Order(first, second, third, forth)
-	if first == nil or second == nil or third == nil or forth == nil then
+	if not (first and second and third and forth) then
 		return ArchiTotem_Print(L["Elements must be written in english!"].." <Earth, Fire, Water, Air>", "error")
 	end
 	-- Set the order of the totems Earth Fire Water Air.
@@ -640,7 +478,7 @@ function ArchiTotem_OnUpdate(arg1)
 	if this.TimeSinceLastUpdate > CLOCK_UPDATE_RATE then
 		for k, v in ArchiTotemActiveTotem do
 			-- Handles the duration of the active totems
-			if GetTime() >(v.casted + v.duration) then
+			if GetTime() > (v.casted + v.duration) then
 				v = nil
 				_G[k .. "DurationText"]:Hide()
 			else
@@ -654,8 +492,8 @@ function ArchiTotem_OnUpdate(arg1)
 		end
 		for k, v in ArchiTotem_TotemData do
 			-- Handles the cooldowns of all totems
-			if ArchiTotem_Options["Apperance"].shownumericcooldowns == true then
-				if v.cooldownstarted == nil then
+			if ArchiTotem_Options["Apperance"].shownumericcooldowns then
+				if not v.cooldownstarted then
 				else
 					if GetTime() > (v.cooldownstarted + v.cooldown) then
 						_G[k .. "CooldownText"]:Hide()
@@ -802,7 +640,7 @@ function ArchiTotem_Command(cmd)
 			ArchiTotem_Options["Debug"] = false
 			ArchiTotem_Print(L["Debuging are now turned off"])
 		end
-	elseif arg[1] == nil then
+	elseif not arg[1] then
 		ArchiTotem_Print(L["Available commands:"])
 		ArchiTotem_Print(L["/at set <earth/fire/water/air> # - Sets the totems shown of that element to #."])
 		ArchiTotem_Print(L["/at direction <up/down> - Set the direction totems pop up."])
@@ -813,7 +651,7 @@ function ArchiTotem_Command(cmd)
 		ArchiTotem_Print(L["/at timers - Toggles showing timers"])
 		ArchiTotem_Print(L["/at tooltip - Toggles showing tooltips"])
 		ArchiTotem_Print(L["/at debug - Toggles debuging"])
-		DEFAULT_CHAT_FRAME:AddMessage("\n")
+		ChatFrame1:AddMessage("\n")
 		ArchiTotem_Print(L["Moving the bar:"])
 		ArchiTotem_Print(L["Ctrl-RightClick and Drag any of the main buttons"])
 		ArchiTotem_Print(L["Ordering totems of same element:"])
