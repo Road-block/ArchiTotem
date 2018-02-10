@@ -1,5 +1,4 @@
-local LOCALE = GetLocale()
-if not (LOCALE == "ruRU") then return end
+if GetLocale() ~= "ruRU" then return end
 local L = ArchiTotemLocale
 
 L["Earthbind Totem"] = "Тотем оков земли"
@@ -70,8 +69,3 @@ L["Cast Earth Totem"] = "Установка тотема земли"
 L["Cast Fire Totem"] = "Установка тотема огня"
 L["Cast Water Totem"] = "Установка тотема воды"
 L["Cast Air Totem"] = "Установка тотема воздуха"
-
-BINDING_NAME_CAST_EARTH_TOTEM = L["Cast Earth Totem"]
-BINDING_NAME_CAST_FIRE_TOTEM = L["Cast Fire Totem"]
-BINDING_NAME_CAST_WATER_TOTEM = L["Cast Water Totem"]
-BINDING_NAME_CAST_AIR_TOTEM = L["Cast Air Totem"]

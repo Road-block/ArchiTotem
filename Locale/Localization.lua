@@ -1,11 +1,11 @@
 local LOCALE = GetLocale()
 ArchiTotemLocale = setmetatable({},{__index = function(t,k)
-  local v = tostring(k)
-  rawset(t,k,v)
-  if (LOCALE ~= "enUS") and (LOCALE ~= "enGB") then
-  	ArchiTotem_Print(string.format(" %q not found for %s",v,LOCALE),"debug")
-  end
-  return v
+	local v = tostring(k)
+	rawset(t,k,v)
+	if LOCALE ~= "enUS" and LOCALE ~= "enGB" then
+		ChatFrame1:AddMessage('|CFF20B2AA[ArchiTotem]|r'..string.format(" %q not found for %s",v,LOCALE))
+	end
+	return v
 end})
 local L = ArchiTotemLocale
 BINDING_NAME_CAST_EARTH_TOTEM = L["Cast Earth Totem"]
